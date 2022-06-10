@@ -15,22 +15,6 @@ try:
                 return final
 
 
-    def sorteia_carac():
-        return random.choice(caracteres)
-
-
-    def sorteia_num():
-        return random.choice(números)
-
-
-    def sorteia_almaiu():
-        return random.choice(alfamaiu)
-
-
-    def sorteia_almin():
-        return random.choice(alfaminu)
-
-
     parcial = []
     senha = []
     cont = 0
@@ -42,7 +26,14 @@ try:
                 'v', 'x', 'y', 'z', 'w')
 
     cabecalho.cabecalho('Gerador de senha!')
-    tamanho = numero.digiteint('\033[33mQual o tamanho da sua senha? ')
+
+    while True:
+        tamanho = numero.digiteint('\033[33mQual o tamanho da sua senha? ')
+        if tamanho < 5:
+            print('A senha não pode ter menos que cinco números!')
+            continue
+        else:
+            break
     carac = valida('Você deseja caracteres especiais na sua senha? Sim ou não? ').strip().upper()[0]
     num = valida('Você deseja números na sua senha? Sim ou não? ').strip().upper()[0]
     almaiu = valida('Você deseja letras maiúsculas na sua senha? Sim ou não? ').strip().upper()[0]
