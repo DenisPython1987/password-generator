@@ -1,7 +1,7 @@
 # tentativa de criar um gerador de senha
 # criado por Denisander Vivan 08/05/2022
 import random
-from lib import numero, cabecalho
+import numero, cabecalho
 
 
 try:
