@@ -2,8 +2,17 @@ import tkinter as tk
 from tkinter import ttk
 from random import randint
 
+#Função pega do chat GPT para validar dados
+def validar_entrada(valor):
+    """Valida se o valor digitado é um inteiro entre 1 e 20"""
+    if valor == '':
+        return True
+    if valor.isdigit():
+        numero = int(valor)
+        return 1 <= numero <= 20
+    return False
 
-
+#Função principal do programa, responsável por gerar as senhas
 def on_gerar_senha():
     """Função para gerar senhas"""
     parcial = []
@@ -16,7 +25,7 @@ def on_gerar_senha():
     alfaminu = ('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
                 'v', 'x', 'y', 'z', 'w')
     
-
+    #Aqui eu pego as opções de senha
     if carac_var.get():
         parcial.append(caracteres)
     if maiu_var.get():
@@ -26,16 +35,19 @@ def on_gerar_senha():
     if num_var.get():
         parcial.append(números)
 
+    #Aqui eu faço uma mini validação de dados para caso não seja escolhido nada
     if not (carac_var.get() or maiu_var.get() or minu_var.get() or num_var.get()):
         status_var.set("Escolha uma opção")
         return
 
+    #Aqui eu crio um bloco try except para garantir que exista um número escolhido
     try:
         tamanho = int(tam_senha.get())
     except:
         status_var.set('Escolha uma opção')
         return
 
+    #Aqui eu tenho o for loop que gera as senhas
     for i in range(tamanho):
         var = randint(0, len(parcial) - 1)
         if len(parcial[var]) == 10:
@@ -45,6 +57,7 @@ def on_gerar_senha():
             vinte = randint(0, 25)
             senha.append(parcial[var][vinte])
     
+    #Aqui eu finalizo a senha e coloco no mostrador
     final = ''
     final = final.join(senha)
     status_var.set(final)
@@ -59,6 +72,9 @@ root.title('Gerador de Senhas')
 
 #Aqui eu determino o tamanho da janela
 root.geometry('500x300+300+300')
+
+#Registrando a função
+validação = root.register(validar_entrada)
 
 root.rowconfigure(0, weight=1)
 root.columnconfigure(0, weight=1)
@@ -80,8 +96,8 @@ ttk.Label(root, text="Qual é o tamanho da sua senha?\n" \
 
 #Aqui eu crio a caixa de seleção de tamanho de senha.
 tam_senha = tk.StringVar(value=12)
-ttk.Spinbox(root, textvariable=tam_senha, from_=5, to=20, increment=1).grid(
-    row=2, column=0, sticky='nsew')
+ttk.Spinbox(root, textvariable=tam_senha,validate='key', validatecommand=(validação, '%P'),
+             from_=5, to=20, increment=1).grid(row=2, column=0, sticky='nsew')
 
 
 #Aqui eu crio o painel para mostrar as opções de senha
