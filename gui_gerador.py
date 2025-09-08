@@ -57,7 +57,7 @@ def on_gerar_senha():
             vinte = randint(0, 25)
             senha.append(parcial[var][vinte])
     
-    #Aqui eu finalizo a senha e coloco no mostrador
+    #Aqui eu finalizo a senha e coloco no mostrado
     final = ''
     final = final.join(senha)
     status_var.set(final)
