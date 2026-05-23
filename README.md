@@ -1,6 +1,6 @@
 # Gerador de Senhas
 
-Esse programa roda em três vias:
+Esse programa rodar em três vias:
   + Instalador
   + Terminal
   + Gui
